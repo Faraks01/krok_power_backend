@@ -8,8 +8,8 @@ def send_email(serializer):
     email = EmailMessage(
         'Title',
         serializer.fields,
-        'my-email',
-        ['my-receive-email']
+        'faraks01@gmail.com',
+        ['faraks01@gmail.com']
     )
     email.send()
 
