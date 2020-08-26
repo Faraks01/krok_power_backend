@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FeedbackForm, BillingForm
+from .models import *
 
 
 class FeedbackFormSerializer(serializers.ModelSerializer):

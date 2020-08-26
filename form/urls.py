@@ -1,7 +1,7 @@
 from rest_framework import routers
 from .views import *
 
-app_name = 'product'
+app_name = 'from'
 
 router = routers.SimpleRouter()
 
