@@ -1,6 +1,19 @@
 from django.db import models
 
 
+class Color(models.Model):
+    class Meta:
+        verbose_name = 'Цвет'
+        verbose_name_plural = 'Цвета'
+
+    alias = models.CharField(max_length=30)
+
+    color = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.alias
+
+
 class BodyShape(models.Model):
     class Meta:
         ordering = ('name',)
@@ -18,6 +31,16 @@ class Manufacturer(models.Model):
         ordering = ('name',)
         verbose_name = 'Производитель'
         verbose_name_plural = 'Производители'
+
+    body_colors = models.ManyToManyField(
+        Color,
+        related_name='body_colors',
+    )
+
+    rosette_colors = models.ManyToManyField(
+        Color,
+        related_name='rosette_colors',
+    )
 
     name = models.CharField(max_length=100, db_index=True)
 
@@ -64,7 +87,7 @@ class FeedbackForm(models.Model):
 
     usb_ports = models.BooleanField(default=True)
 
-    amount_of_rosette = models.IntegerField(default=9)
+    amount_of_rosette = models.PositiveIntegerField(default=9)
 
     rosette_color = models.CharField(max_length=10, default="#FFFFFF")
 
@@ -82,7 +105,7 @@ class FeedbackForm(models.Model):
         blank=True
     )
 
-    wire_length = models.IntegerField(blank=True)
+    wire_length = models.PositiveIntegerField(blank=True)
 
 
 class BillingForm(models.Model):

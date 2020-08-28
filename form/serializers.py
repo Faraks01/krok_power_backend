@@ -12,3 +12,27 @@ class BillingFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingForm
         fields = '__all__'
+
+
+class BodyShapeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BodyShape
+        fields = '__all__'
+
+
+class ManufacturerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manufacturer
+        fields = '__all__'
+
+
+class WireTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WireType
+        fields = '__all__'
+
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = '__all__'

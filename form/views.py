@@ -93,3 +93,27 @@ class BillingFormViewSet(viewsets.ModelViewSet):
         )
 
         return response
+
+
+class ColorViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Color.objects.all()
+    serializer_class = ColorSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class BodyShapeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = BodyShape.objects.all()
+    serializer_class = BodyShapeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Manufacturer.objects.all()
+    serializer_class = ManufacturerSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class WireTypeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = WireType.objects.all()
+    serializer_class = WireTypeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
