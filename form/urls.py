@@ -11,5 +11,6 @@ router.register(r'colors', ColorViewSet, basename='color')
 router.register(r'body_shapes', BodyShapeViewSet, basename='body_shape')
 router.register(r'manufacturers', ManufacturerViewSet, basename='manufacturer')
 router.register(r'wire_types', WireTypeViewSet, basename='wire_type')
+router.register(r'wire_lengths', WireLengthViewSet, basename='wire_length')
 
 urlpatterns = router.urls

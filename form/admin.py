@@ -5,6 +5,7 @@ admin.site.register(BodyShape)
 admin.site.register(Color)
 admin.site.register(Manufacturer)
 admin.site.register(WireType)
+admin.site.register(WireLength)
 
 
 @admin.register(FeedbackForm)

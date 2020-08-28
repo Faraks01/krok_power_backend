@@ -32,6 +32,12 @@ class WireTypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class WireLengthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WireLength
+        fields = '__all__'
+
+
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color

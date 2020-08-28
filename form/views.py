@@ -117,3 +117,9 @@ class WireTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WireType.objects.all()
     serializer_class = WireTypeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class WireLengthViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = WireLength.objects.all()
+    serializer_class = WireLengthSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]

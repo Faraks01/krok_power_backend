@@ -60,6 +60,18 @@ class WireType(models.Model):
         return self.name
 
 
+class WireLength(models.Model):
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'Длинна кабеля'
+        verbose_name_plural = 'Длинна кабелей'
+
+    name = models.FloatField(max_length=100, verbose_name='length')
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class FeedbackForm(models.Model):
     class Meta:
         ordering = ('created',)
