@@ -80,9 +80,9 @@ class FeedbackForm(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
 
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20, blank=False)
 
-    first_name = models.CharField(max_length=40)
+    first_name = models.CharField(max_length=40, blank=False)
 
     body_shape = models.ForeignKey(
         BodyShape,
@@ -103,7 +103,7 @@ class FeedbackForm(models.Model):
 
     rosette_color = models.CharField(max_length=10, default="#FFFFFF")
 
-    rosette_manufacturer = models.ForeignKey(
+    manufacturer = models.ForeignKey(
         Manufacturer,
         related_name="manufacturers",
         on_delete=models.CASCADE,

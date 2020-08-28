@@ -6,12 +6,38 @@ class FeedbackFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeedbackForm
         fields = '__all__'
+        extra_kwargs = {
+            "phone_number": {
+                "error_messages": {
+                    "blank": "Поле \"Телефон\" пустое!"
+                }
+            },
+
+            "first_name": {
+                "error_messages": {
+                    "blank": "Поле \"Имя\" пустое!"
+                }
+            }
+        }
 
 
 class BillingFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingForm
         fields = '__all__'
+        extra_kwargs = {
+            "phone_number": {
+                "error_messages": {
+                    "blank": "Поле \"Телефон\" пустое!"
+                }
+            },
+
+            "first_name": {
+                "error_messages": {
+                    "blank": "Поле \"Имя\" пустое!"
+                }
+            }
+        }
 
 
 class BodyShapeSerializer(serializers.ModelSerializer):

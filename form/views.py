@@ -38,7 +38,7 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
         Цвет розеток: {rosette_color}
         Длинна провода: {wire_length}
         Тип корпуса: {body_shape}
-        Производитель розеток: {rosette_manufacturer}
+        Производитель розеток: {manufacturer}
         Тип провода: {wire_type}
         '''.format(
             id=response.data['id'],
@@ -53,7 +53,7 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
             rosette_color=response.data['rosette_color'],
             wire_length=response.data['wire_length'],
             body_shape=BodyShape.objects.get(pk=response.data['body_shape']),
-            rosette_manufacturer=Manufacturer.objects.get(pk=response.data['rosette_manufacturer']),
+            manufacturer=Manufacturer.objects.get(pk=response.data['manufacturer']),
             wire_type=WireType.objects.get(pk=response.data['wire_type']),
         )
 
