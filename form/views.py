@@ -1,8 +1,11 @@
 from datetime import datetime
 from rest_framework import viewsets
 from rest_framework import permissions
+
 from .serializers import *
 from django.core.mail import EmailMessage
+
+from view_set_permissions.permissions import CreateOrReadOnly
 
 
 def send_email(title='', message=''):
@@ -10,7 +13,7 @@ def send_email(title='', message=''):
         title,
         message,
         'faraks01@gmail.com',
-        ['faraks01@gmail.com']
+        ['krokodailpower@gmail.com']
     )
     email.send(fail_silently=True)
 
@@ -18,7 +21,7 @@ def send_email(title='', message=''):
 class FeedbackFormViewSet(viewsets.ModelViewSet):
     queryset = FeedbackForm.objects.all().order_by('created')
     serializer_class = FeedbackFormSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [CreateOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         response = super(FeedbackFormViewSet, self).create(request, *args, **kwargs)
@@ -68,7 +71,7 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
 class BillingFormViewSet(viewsets.ModelViewSet):
     queryset = BillingForm.objects.all().order_by('created')
     serializer_class = BillingFormSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [CreateOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         response = super(BillingFormViewSet, self).create(request, *args, **kwargs)
