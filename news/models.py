@@ -10,7 +10,7 @@ def upd_rand_name(instance, filename):
 
 class News(models.Model):
     class Meta:
-        ordering = ('-created',)
+        ordering = ('created',)
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
 
