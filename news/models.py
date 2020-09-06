@@ -18,7 +18,7 @@ class News(models.Model):
 
     title = models.CharField(max_length=200, verbose_name="Заголовок")
 
-    text = models.CharField(max_length=800, verbose_name="Текст")
+    text = models.TextField(verbose_name="Текст")
 
     image = models.ImageField(
         upload_to=upd_rand_name,
