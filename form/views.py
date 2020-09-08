@@ -12,7 +12,7 @@ def send_email(title='', message=''):
     email = EmailMessage(
         title,
         message,
-        'faraks01@gmail.com',
+        'krokodailpower@gmail.com',
         ['krokodailpower@gmail.com']
     )
     email.send(fail_silently=True)
