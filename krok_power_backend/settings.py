@@ -121,6 +121,7 @@ MEDIA_URL = '/api/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'UPLOADED_FILES_USE_URL': False,
     'PAGE_SIZE': 10
 }
 
