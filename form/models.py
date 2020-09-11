@@ -93,27 +93,40 @@ class FeedbackForm(models.Model):
         BodyShape,
         related_name="body_shapes",
         on_delete=models.CASCADE,
-        default=1,
+        default=2,
         verbose_name="Форма корпуса"
     )
 
-    body_color = models.CharField(max_length=10, default="#FFFFFF", verbose_name="Цвет корпуса")
+    body_color = models.ForeignKey(
+        Color,
+        related_name="+",
+        on_delete=models.CASCADE,
+        default=1,
+        verbose_name="Цвет корпуса"
+    )
 
-    backlight = models.BooleanField(default=True)
+    backlight = models.BooleanField(default=False)
 
     tire_gilding = models.BooleanField(default=False, verbose_name="Золочение шин")
 
-    usb_ports = models.BooleanField(default=True, verbose_name="USB порты")
+    usb_ports = models.BooleanField(default=False, verbose_name="USB порты")
 
     amount_of_rosette = models.PositiveIntegerField(default=9, verbose_name="Количество розеток")
 
-    rosette_color = models.CharField(max_length=10, default="#FFFFFF", verbose_name="Цвет розеток")
+    rosette_color = models.ForeignKey(
+        Color,
+        related_name="+",
+        on_delete=models.CASCADE,
+        default=1,
+        verbose_name="Цвет розеток"
+    )
 
     manufacturer = models.ForeignKey(
         Manufacturer,
         related_name="manufacturers",
         on_delete=models.CASCADE,
         blank=True,
+        null=True,
         verbose_name="Производитель"
     )
 
@@ -122,11 +135,13 @@ class FeedbackForm(models.Model):
         related_name="wire_types",
         on_delete=models.CASCADE,
         blank=True,
+        null=True,
         verbose_name="Тип кабеля"
     )
 
     wire_length = models.PositiveIntegerField(
         blank=True,
+        null=True,
         verbose_name="Длинна кабеля"
     )
 

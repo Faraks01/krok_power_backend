@@ -26,6 +26,8 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         response = super(FeedbackFormViewSet, self).create(request, *args, **kwargs)
 
+        print(response.data);
+
         timestamp = datetime.strptime(response.data['created'], "%Y-%m-%dT%H:%M:%S.%fZ")
 
         message = '''
@@ -54,10 +56,10 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
             usb_ports='✓' if response.data['usb_ports'] is True else '×',
             amount_of_rosette=response.data['amount_of_rosette'],
             rosette_color=Color.objects.get(pk=response.data['rosette_color']),
-            wire_length=WireLength.objects.get(pk=response.data['wire_length']),
+            wire_length=WireLength.objects.get(pk=response.data['wire_length']) if response.data['wire_length'] is not None else 'Не выбрано',
             body_shape=BodyShape.objects.get(pk=response.data['body_shape']),
-            manufacturer=Manufacturer.objects.get(pk=response.data['manufacturer']),
-            wire_type=WireType.objects.get(pk=response.data['wire_type']),
+            manufacturer=Manufacturer.objects.get(pk=response.data['manufacturer']) if response.data['manufacturer'] is not None else 'Не выбрано',
+            wire_type=WireType.objects.get(pk=response.data['wire_type']) if response.data['wire_type'] is not None else 'Не выбрано',
         )
 
         send_email(
