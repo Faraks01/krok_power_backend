@@ -1,21 +1,24 @@
 from datetime import datetime
-from rest_framework import viewsets
-from rest_framework import permissions
 
-from .serializers import *
 from django.core.mail import EmailMessage
+from django.http import HttpResponseBadRequest
+from rest_framework import permissions
+from rest_framework import viewsets
 
+from krok_power_backend.settings import EMAIL_HOST_USER
 from view_set_permissions.permissions import CreateOrReadOnly
+from .serializers import *
 
 
-def send_email(title='', message=''):
+def generate_email_object(title='', message='') -> EmailMessage:
     email = EmailMessage(
         title,
         message,
-        'krokodailpower@gmail.com',
-        ['krokodailpower@gmail.com']
+        EMAIL_HOST_USER,
+        [EMAIL_HOST_USER]
     )
-    email.send(fail_silently=True)
+
+    return email
 
 
 class FeedbackFormViewSet(viewsets.ModelViewSet):
@@ -25,8 +28,6 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super(FeedbackFormViewSet, self).create(request, *args, **kwargs)
-
-        print(response.data);
 
         timestamp = datetime.strptime(response.data['created'], "%Y-%m-%dT%H:%M:%S.%fZ")
 
@@ -56,18 +57,25 @@ class FeedbackFormViewSet(viewsets.ModelViewSet):
             usb_ports='✓' if response.data['usb_ports'] is True else '×',
             amount_of_rosette=response.data['amount_of_rosette'],
             rosette_color=Color.objects.get(pk=response.data['rosette_color']),
-            wire_length=WireLength.objects.get(pk=response.data['wire_length']) if response.data['wire_length'] is not None else 'Не выбрано',
+            wire_length=WireLength.objects.get(pk=response.data['wire_length']) if response.data[
+                                                                                       'wire_length'] is not None else 'Не выбрано',
             body_shape=BodyShape.objects.get(pk=response.data['body_shape']),
-            manufacturer=Manufacturer.objects.get(pk=response.data['manufacturer']) if response.data['manufacturer'] is not None else 'Не выбрано',
-            wire_type=WireType.objects.get(pk=response.data['wire_type']) if response.data['wire_type'] is not None else 'Не выбрано',
+            manufacturer=Manufacturer.objects.get(pk=response.data['manufacturer']) if response.data[
+                                                                                           'manufacturer'] is not None else 'Не выбрано',
+            wire_type=WireType.objects.get(pk=response.data['wire_type']) if response.data[
+                                                                                 'wire_type'] is not None else 'Не выбрано',
         )
 
-        send_email(
+        email_object = generate_email_object(
             title='Предзаполненная форма обратной связи #{}'.format(response.data['id']),
             message=message
         )
 
-        return response
+        try:
+            email_object.send()
+            return response
+        except:
+            return HttpResponseBadRequest('Failed to send the form')
 
 
 class BillingFormViewSet(viewsets.ModelViewSet):
@@ -92,12 +100,16 @@ class BillingFormViewSet(viewsets.ModelViewSet):
             first_name=response.data['first_name'],
         )
 
-        send_email(
+        email_object = generate_email_object(
             title='Форма обратной связи #{}'.format(response.data['id']),
             message=message
         )
 
-        return response
+        try:
+            email_object.send()
+            return response
+        except:
+            return HttpResponseBadRequest('Failed to send the form')
 
 
 class ColorViewSet(viewsets.ReadOnlyModelViewSet):
