@@ -6,7 +6,7 @@ if [[ -z "${EMAIL_HOST_USER}" ]]; then
 fi
 
 if [[ -z "${EMAIL_HOST_PASSWORD}" ]]; then
-  echo "Enter an email host user"
+  echo "Enter an email host password"
   read EMAIL_HOST_PASSWORD
 fi
 
